@@ -33,6 +33,10 @@ def stock():
     from bokeh.plotting import figure, show
     from bokeh.models import ColumnDataSource
     import pandas as pd
+    from bokeh.io import curdoc
+    from bokeh.models import Select
+    from bokeh.themes import Theme, built_in_themes
+
     if request.method == 'GET':
         load_dotenv()
         API = os.getenv('API')
@@ -58,13 +62,15 @@ def stock():
         source = ColumnDataSource(data=ticker_data)
 
         p2 = figure(x_axis_type="datetime", title="Recent " +Ticker+" Open Prices")
+        p2.sizing_mode = 'scale_width'
         p2.grid.grid_line_alpha = 0
         p2.xaxis.axis_label = 'Date'
         p2.yaxis.axis_label = option.capitalize()
 
         p2.line(x="date", y="values", legend_label='open',
-                   color='black', alpha=0.2,source=source)
-        html = file_html(p2, CDN, Ticker+" stock")
+                   color='white', alpha=0.2,source=source)
+        curdoc().theme = 'contrast'
+        html = file_html(p2, CDN,Ticker+" stock", theme=built_in_themes['contrast'])
 
         return html
     else:

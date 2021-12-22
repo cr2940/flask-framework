@@ -1,27 +1,35 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Skeleton application demoing Heroku and Flask integration.">
-    <meta name="author" content="@gotoariel">
-    <!-- <link rel="icon" href="favicon.ico"> -->
-
     <title>Judah's first Web App using Flask&Heroku</title>
 
-    <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style>
+div {
+  list-style-position: inside;
+text-align: center;
+ }
+ body {
+   background-color: black;
+   color: white;
+ }
+ a:visited {
+  color: white;
+}
+
+</style>
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-left">
-          <h2>Hello, click one of the options below to see relevant stock information!</h2>
+          <h2>Finance Information Lookup App</h2>
+          <p> Hello user, click one of the options below! </p>
           <ul>
             <li><a href="/about">About</a></li>
             <li><a target="_self" href="/form">Stock Info</a></li>
             <li><a target="_blank" href="http://finance.yahoo.com">Yahoo Finance</a></li>
           </ul>
+          <p> Made by Judah Ryoo using Flask and Heroku.
         </div>
       </div>
     </div>
