@@ -28,6 +28,11 @@ def stock():
     from dotenv import load_dotenv
     from bokeh.embed import file_html
     from bokeh.resources import CDN
+    import numpy as np
+    from bokeh.layouts import gridplot
+    from bokeh.plotting import figure, show
+    from bokeh.models import ColumnDataSource
+    import pandas as pd
     if request.method == 'GET':
         load_dotenv()
         API = os.getenv('API')
@@ -40,25 +45,25 @@ def stock():
         tick_data_py = json.loads(str(data).replace('\'','\"'))
         json_data = tick_data_py["Time Series (5min)"]
         dates = json_data.keys()
-        open_prices = {}
+        ticker_dates = np.array(list(dates), dtype='M')
+        ticker_values = []
         for date in dates:
             if option == "price":
-                open_prices[date] = float(json_data[date]['1. open'])
+                ticker_values.append(float(json_data[date]['1. open']))
             elif option == 'volume':
-                open_prices[date] = int(json_data[date]['5. volume'])
-        import numpy as np
+                ticker_values.append(int(json_data[date]['5. volume']))
 
-        from bokeh.layouts import gridplot
-        from bokeh.plotting import figure, show
-        ticker = np.array(list(open_prices.values()))
-        ticker_dates = np.array(list(dates), dtype='M')
+        ticker_data = dict(date = ticker_dates, values=ticker_values)
+        ticker_data = pd.DataFrame(ticker_data)
+        source = ColumnDataSource(data=ticker_data)
+
         p2 = figure(x_axis_type="datetime", title="Recent " +Ticker+" Open Prices")
         p2.grid.grid_line_alpha = 0
         p2.xaxis.axis_label = 'Date'
         p2.yaxis.axis_label = option.capitalize()
 
-        p2.line(ticker_dates, ticker, legend_label='open',
-                   color='black', alpha=0.2)
+        p2.line(x="date", y="values", legend_label='open',
+                   color='black', alpha=0.2,source=source)
         html = file_html(p2, CDN, Ticker+" stock")
 
         return html
