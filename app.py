@@ -1,19 +1,24 @@
 from flask import Flask, render_template, request, redirect, url_for
-
+from flask_mobility import Mobility
+from flask_mobility.decorators import mobile_template
 app = Flask(__name__)
+Mobility(app)
 
 @app.route('/')
-def index():
-  return render_template('index.html')
+@mobile_template('{mobile/}index.html')
+def index(template):
+  return render_template(template)
 
 @app.route('/about')
-def about():
-  return render_template('about.html')
+@mobile_template('{mobile/}about.html')
+def about(template):
+  return render_template(template)
 
 @app.route('/form',methods=['POST','GET'])
-def form():
+@mobile_template('{mobile/}form.html')
+def form(template):
     if request.method == 'GET':
-        return render_template('form.html')
+        return render_template(template)
     if request.method == 'POST':
         Ticker = request.form['Ticker']
         option = request.form['options']
