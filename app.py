@@ -51,7 +51,7 @@ def stock():
         url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+Ticker+'&interval=5min&apikey='+API
         r = requests.get(url)
         data = r.json()
-        if data["Error Message"]:
+        if "Error Message" in data:
             return redirect(url_for('err'))
         tick_data_py = json.loads(str(data).replace('\'','\"'))
         json_data = tick_data_py["Time Series (5min)"]
