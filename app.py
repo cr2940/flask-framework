@@ -7,18 +7,18 @@ Mobility(app)
 @app.route('/')
 @mobile_template('{mobile/}index.html')
 def index(template):
-  return render_template_string(template)
+  return render_template(template)
 
 @app.route('/about')
 @mobile_template('{mobile/}about.html')
 def about(template):
-  return render_template_string(template)
+  return render_template(template)
 
 @app.route('/form',methods=['POST','GET'])
 @mobile_template('{mobile/}form.html')
 def form(template):
     if request.method == 'GET':
-        return render_template_string(template)
+        return render_template(template)
     if request.method == 'POST':
         Ticker = request.form['Ticker']
         option = request.form['options']
