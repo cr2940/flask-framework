@@ -51,6 +51,8 @@ def stock():
         url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol='+Ticker+'&interval=5min&apikey='+API
         r = requests.get(url)
         data = r.json()
+        if data["Error Message"]:
+            return redirect(url_for('err'))
         tick_data_py = json.loads(str(data).replace('\'','\"'))
         json_data = tick_data_py["Time Series (5min)"]
         dates = json_data.keys()
@@ -80,6 +82,12 @@ def stock():
         return html
     else:
         return redirect(url_for('form'))
+
+@app.route('/err')
+@mobile_template('{mobile/}err.html')
+def err(template):
+    return render_template(template)
+
 
 
 if __name__ == '__main__':
