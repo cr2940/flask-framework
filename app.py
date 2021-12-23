@@ -66,13 +66,13 @@ def stock():
         ticker_data = pd.DataFrame(ticker_data)
         source = ColumnDataSource(data=ticker_data)
 
-        p2 = figure(x_axis_type="datetime", title="Recent " +Ticker+" Open Prices")
+        p2 = figure(x_axis_type="datetime", title="Recent " +Ticker+ option)
         p2.sizing_mode = 'scale_width'
         p2.grid.grid_line_alpha = 0
         p2.xaxis.axis_label = 'Date'
         p2.yaxis.axis_label = option.capitalize()
 
-        p2.line(x="date", y="values", legend_label='open',
+        p2.line(x="date", y="values", legend_label=option,
                    color='white', line_width=2,source=source)
         curdoc().theme = 'contrast'
         html = file_html(p2, CDN,Ticker+" stock", theme=built_in_themes['contrast'])
