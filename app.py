@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-from flask_mobility import Mobility
-from flask_mobility.decorators import mobile_template
+from flask-mobility import Mobility
+from flask-mobility.decorators import mobile_template
 app = Flask(__name__)
 Mobility(app)
 
