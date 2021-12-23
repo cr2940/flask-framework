@@ -73,7 +73,7 @@ def stock():
         p2.yaxis.axis_label = option.capitalize()
 
         p2.line(x="date", y="values", legend_label='open',
-                   color='white', alpha=0.2,source=source)
+                   color='white', line_width=2,source=source)
         curdoc().theme = 'contrast'
         html = file_html(p2, CDN,Ticker+" stock", theme=built_in_themes['contrast'])
 
